@@ -1,10 +1,16 @@
 import React from 'react';
 import './styles/global.css';
 
+import PlanetsContext from './context/PlanetsContext';
+
 import Home from './pages/Home';
 
 function App() {
-  return <Home />;
+  return (
+    <PlanetsContext>
+      <Home />
+    </PlanetsContext>
+  );
 }
 
 export default App;
