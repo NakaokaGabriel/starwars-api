@@ -1,0 +1,40 @@
+nav.navigation {
+  background: var(--gray);
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (min-width: 1024px) {
+  nav.navigation {
+    padding: 20px 40px;
+  }
+}
+
+nav.navigation img {
+  width: 50px;
+}
+
+@media screen and (min-width: 1024px) {
+  nav.navigation img {
+    width: 70px;
+  }
+}
+
+nav.navigation .description {
+  color: var(--white);
+}
+
+nav.navigation .description::before {
+  content: '';
+  height: 30px;
+  width: 2px;
+  background: var(--white);
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  margin: 0 20px;
+}
+
+@media screen and (min-width: 1024px) {
+}

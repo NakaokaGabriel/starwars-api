@@ -1,15 +1,22 @@
 import React from 'react';
-// import styled from './Home.module.css';
 
-import Table from '../components/Table';
+import styled from './Home.module.css';
+
+import Navigation from '../../components/Navigation';
+import Table from '../../components/Table';
+import Container from '../../components/Container';
 
 const Home: React.FC = () => {
   return (
-    <>
-      <h1>Logo</h1>
+    <div className={styled.main}>
+      <Navigation />
 
-      <Table />
-    </>
+      <Container>
+        <section className={styled.content}>
+          <Table />
+        </section>
+      </Container>
+    </div>
   );
 };
 

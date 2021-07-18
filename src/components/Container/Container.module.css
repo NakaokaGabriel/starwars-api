@@ -1,0 +1,13 @@
+.container {
+  margin: 0 20px;
+  overflow-x: auto;
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    max-width: 1440px;
+    margin: 0 auto;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
