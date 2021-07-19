@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import { MdSearch } from 'react-icons/md';
 
 import styled from './Home.module.css';
 
-import Container from '../../components/Container';
+import usePlanets from '../../hooks/usePlanets';
 
+import Container from '../../components/Container';
 import Navigation from '../../components/Navigation';
 import Filter from '../../components/Filter';
+import Chips from '../../components/Chips';
 import Table from '../../components/Table';
 import Pagination from '../../components/Pagination';
 
 const Home: React.FC = () => {
+  const { setSearch, filters } = usePlanets();
   // TODO
   // filtro de nome do planeta
   // filtro por coluna exemplo o nome da coluna a qual apertar sera filtrado
   // filtro de comparação
   // filtro de valor
   // remover uns dos filtros de coluna
+
+  const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearch(event.target.value);
+  };
 
   return (
     <div className={styled.main}>
@@ -39,11 +46,22 @@ const Home: React.FC = () => {
                 placeholder="Search by Name"
                 id="search"
                 name="search"
+                onChange={inputChange}
               />
             </label>
           </div>
 
           <Filter />
+
+          {filters &&
+            filters.map((chip) => (
+              <Chips
+                key={chip.name}
+                name={chip.name}
+                comparison={chip.comparison}
+                value={chip.value}
+              />
+            ))}
 
           <Table />
           <Pagination />

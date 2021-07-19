@@ -31,7 +31,11 @@
   display: flex;
   align-items: center;
   cursor: text;
-  padding-right: 20px;
+}
+
+.filter label > div {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .filter input {
