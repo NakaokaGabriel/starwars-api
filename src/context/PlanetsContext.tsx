@@ -23,6 +23,7 @@ export type PlanetData = {
   previous: string | undefined;
   next: string | undefined;
   results: PlanetItem[] | undefined;
+  // filterByName?: string;
 };
 
 export const PlanetsProvider = createContext<PlanetData>({} as PlanetData);

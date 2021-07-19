@@ -1,0 +1,41 @@
+.container .table {
+  width: 100%;
+  border-collapse: collapse;
+  background: none;
+}
+
+.table thead tr th {
+  padding: 10px 10px;
+  text-align: left;
+  min-width: 200px;
+  color: var(--lightGray);
+  font-weight: normal;
+}
+
+.table thead tr th.text-left {
+  text-align: left;
+}
+.table thead tr th.text-right {
+  text-align: right;
+}
+.table thead tr th.text-center {
+  text-align: center;
+}
+
+.table tbody tr td {
+  border-top: 1px solid var(--lightGray);
+  color: var(--white);
+  padding: 20px 10px;
+}
+
+.table tbody tr td.text-left {
+  text-align: left;
+}
+
+.table tbody tr td.text-right {
+  text-align: right;
+}
+
+.table tbody tr td.text-center {
+  text-align: center;
+}

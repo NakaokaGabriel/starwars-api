@@ -1,7 +1,76 @@
 .main {
   width: 100%;
+  padding-bottom: 40px;
 }
 
 .content {
   margin-top: 40px;
+}
+
+.content__header {
+  width: 100%;
+  margin: 20px 0;
+}
+
+/* @media screen and (min-width: 1024px) {
+  .content__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 40px 0;
+  }
+} */
+
+.content__search {
+  margin: 0 0 40px;
+}
+
+@media screen and (min-width: 1024px) {
+  .content__search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.header__title h1 {
+  color: var(--white);
+}
+
+.header__title h2 {
+  color: var(--lightGray);
+  margin-top: 5px;
+}
+
+.content__search label {
+  height: 40px;
+  background: var(--gray);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  cursor: text;
+  padding-right: 20px;
+  margin-top: 40px;
+}
+
+@media screen and (min-width: 1024px) {
+  .content__search label {
+    margin-top: 0;
+  }
+}
+
+.content__search label input {
+  border: none;
+  background: none;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.content__search label button {
+  background: none;
+  border: none;
+  height: 100%;
+  padding: 5px 10px 0;
+  cursor: text;
 }
