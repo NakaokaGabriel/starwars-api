@@ -1,3 +1,12 @@
+:root {
+  --primary: #2910D0;
+  --background: #212025;
+  --white: #F5F5F7;
+  --gray: #333237;
+  --lightGray: #8F8F91;
+  --darkGray: #3E3E41;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -7,10 +16,13 @@
 
 html, body {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 body {
   -webkit-font-smoothing: antialiased;
+  background: var(--background);
 }
 
 body, button, input, textarea {
