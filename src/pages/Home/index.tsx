@@ -53,8 +53,8 @@ const Home: React.FC = () => {
 
           <Filter />
 
-          {filters &&
-            filters.map((chip) => (
+          {filters.filters &&
+            filters.filters.filterByNumericValues.map((chip) => (
               <Chips
                 key={chip.name}
                 name={chip.name}

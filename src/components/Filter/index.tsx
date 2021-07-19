@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from 'react';
 import Select from 'react-select';
 
@@ -56,23 +57,35 @@ const Filter: React.FC = () => {
   ]);
 
   const handleClick = () => {
-    const existName = filters.find((filter) => filter.name === name);
+    const existName =
+      filters.filters &&
+      filters.filters.filterByNumericValues.find(
+        (filter) => filter.name === name
+      );
     const removeName = nameOption.filter((option) => option.value !== name);
 
     if (
       !existName &&
       name.length > 0 &&
       comparison.length > 0 &&
-      value.length >= 1
+      value.length >= 1 &&
+      filters.filters
     ) {
-      setFilters([
-        ...filters,
-        {
-          name,
-          comparison,
-          value
+      setFilters({
+        filters: {
+          filterByName: {
+            name
+          },
+          filterByNumericValues: [
+            ...filters.filters.filterByNumericValues,
+            {
+              name,
+              comparison,
+              value
+            }
+          ]
         }
-      ]);
+      });
 
       setNameOption([...removeName]);
     }

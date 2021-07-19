@@ -18,10 +18,19 @@ export type PlanetItem = {
   edited: Date;
 };
 
-type FilterType = {
+type NumericFilterType = {
   name: string;
   comparison: string;
   value: string;
+};
+
+type FilterType = {
+  filters: {
+    filterByName: {
+      name: string;
+    };
+    filterByNumericValues: NumericFilterType[];
+  };
 };
 
 export type PlanetDataContext = {
@@ -33,8 +42,8 @@ export type PlanetDataContext = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   search: string;
   setSearch: React.Dispatch<React.SetStateAction<string>>;
-  filters: FilterType[];
-  setFilters: React.Dispatch<React.SetStateAction<FilterType[]>>;
+  filters: FilterType;
+  setFilters: React.Dispatch<React.SetStateAction<FilterType>>;
 };
 
 export const PlanetsProvider = createContext<PlanetDataContext>(
@@ -56,7 +65,14 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
   const [data, setData] = useState<PlanetDataReturn>();
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-  const [filters, setFilters] = useState<FilterType[]>([]);
+  const [filters, setFilters] = useState({
+    filters: {
+      filterByName: {
+        name: ''
+      },
+      filterByNumericValues: []
+    }
+  } as FilterType);
 
   useEffect(() => {
     async function loadPlanets() {
@@ -79,7 +95,7 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
     }
 
     loadPlanets();
-  }, [page, search]);
+  }, [page, search, filters]);
 
   return (
     <PlanetsProvider.Provider

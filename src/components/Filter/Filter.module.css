@@ -10,7 +10,7 @@
 }
 
 .filter {
-  flex: auto;
+  flex: 1;
 }
 
 .filter + .filter {

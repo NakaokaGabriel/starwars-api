@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  MdKeyboardArrowRight,
-  MdClose,
-  MdKeyboardArrowLeft
-} from 'react-icons/md';
-import { FaEquals } from 'react-icons/fa';
+import { MdClose } from 'react-icons/md';
 
 import styled from './Chips.module.css';
 import usePlanets from '../../hooks/usePlanets';
@@ -18,24 +13,33 @@ type ChipsProps = {
 const comparisonModifier = (comparison: string) => {
   switch (comparison) {
     case 'lessThan': {
-      return <MdKeyboardArrowLeft size={22} color="#F5F5F7" />;
+      return <p className={styled.comparison}>{`<`}</p>;
     }
     case 'moreThan': {
-      return <MdKeyboardArrowRight size={22} color="#F5F5F7" />;
+      return <p className={styled.comparison}>{`>`}</p>;
     }
     case 'equalThan': {
-      return <FaEquals size={22} color="#F5F5F7" />;
+      return <p className={styled.comparison}>{`=`}</p>;
     }
   }
 };
 
 const Chips = ({ name, comparison, value }: ChipsProps) => {
-  const { setFilters, filters } = usePlanets();
+  const { setFilters, filters, search } = usePlanets();
 
   const handleDelete = (name: string) => {
-    const removeFilter = filters.filter((filter) => filter.name !== name);
+    const removeFilter = filters.filters.filterByNumericValues.filter(
+      (filter) => filter.name !== name
+    );
 
-    setFilters([...removeFilter]);
+    setFilters({
+      filters: {
+        filterByName: {
+          name: search
+        },
+        filterByNumericValues: [...removeFilter]
+      }
+    });
   };
 
   return (
