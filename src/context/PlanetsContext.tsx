@@ -18,6 +18,21 @@ export type PlanetItem = {
   edited: Date;
 };
 
+type NumericFilterType = {
+  name: string;
+  comparison: string;
+  value: string;
+};
+
+type FilterType = {
+  filters: {
+    filterByName: {
+      name: string;
+    };
+    filterByNumericValues: NumericFilterType[];
+  };
+};
+
 export type PlanetDataContext = {
   count: number | undefined;
   previous: string | undefined;
@@ -25,6 +40,10 @@ export type PlanetDataContext = {
   results: PlanetItem[] | undefined;
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  search: string;
+  setSearch: React.Dispatch<React.SetStateAction<string>>;
+  filters: FilterType;
+  setFilters: React.Dispatch<React.SetStateAction<FilterType>>;
 };
 
 export const PlanetsProvider = createContext<PlanetDataContext>(
@@ -45,20 +64,38 @@ type PlanetDataReturn = {
 const PlanetsContext = ({ children }: PlanetsContextProps) => {
   const [data, setData] = useState<PlanetDataReturn>();
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState('');
+  const [filters, setFilters] = useState({
+    filters: {
+      filterByName: {
+        name: ''
+      },
+      filterByNumericValues: []
+    }
+  } as FilterType);
 
   useEffect(() => {
     async function loadPlanets() {
-      const response = await api.get(`/planets`, {
+      const response = await api.get<PlanetDataReturn>(`/planets`, {
         params: {
           page: page
         }
       });
 
-      setData(response.data);
+      const lowerSearch = search.toLocaleLowerCase();
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const searchResult = response.data.results!.filter((planet) =>
+        planet.name.toLowerCase().includes(lowerSearch)
+      );
+
+      setData({
+        ...response.data,
+        results: searchResult
+      });
     }
 
     loadPlanets();
-  }, [page]);
+  }, [page, search, filters]);
 
   return (
     <PlanetsProvider.Provider
@@ -68,7 +105,11 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
         next: data?.next,
         results: data?.results,
         page: page,
-        setPage: setPage
+        setPage,
+        search,
+        setSearch,
+        filters,
+        setFilters
       }}
     >
       {children}
