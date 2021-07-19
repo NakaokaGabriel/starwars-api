@@ -18,32 +18,47 @@ export type PlanetItem = {
   edited: Date;
 };
 
-export type PlanetData = {
+export type PlanetDataContext = {
   count: number | undefined;
   previous: string | undefined;
   next: string | undefined;
   results: PlanetItem[] | undefined;
-  // filterByName?: string;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
-export const PlanetsProvider = createContext<PlanetData>({} as PlanetData);
+export const PlanetsProvider = createContext<PlanetDataContext>(
+  {} as PlanetDataContext
+);
 
 type PlanetsContextProps = {
   children: React.ReactNode;
 };
 
+type PlanetDataReturn = {
+  count: number | undefined;
+  previous: string | undefined;
+  next: string | undefined;
+  results: PlanetItem[] | undefined;
+};
+
 const PlanetsContext = ({ children }: PlanetsContextProps) => {
-  const [data, setData] = useState<PlanetData>();
+  const [data, setData] = useState<PlanetDataReturn>();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     async function loadPlanets() {
-      const response = await api.get('/planets');
+      const response = await api.get(`/planets`, {
+        params: {
+          page: page
+        }
+      });
 
       setData(response.data);
     }
 
     loadPlanets();
-  }, []);
+  }, [page]);
 
   return (
     <PlanetsProvider.Provider
@@ -51,7 +66,9 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
         count: data?.count,
         previous: data?.previous,
         next: data?.next,
-        results: data?.results
+        results: data?.results,
+        page: page,
+        setPage: setPage
       }}
     >
       {children}

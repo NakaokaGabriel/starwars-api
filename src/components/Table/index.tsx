@@ -1,8 +1,10 @@
 import React from 'react';
+import { MdMoreVert, MdKeyboardArrowRight } from 'react-icons/md';
 
 import styled from './Table.module.css';
 
 import usePlanets from '../../hooks/usePlanets';
+import { dateFormat } from '../../shared/dateFormat';
 
 const Table = () => {
   const { results } = usePlanets();
@@ -40,10 +42,16 @@ const Table = () => {
               <td>{planet.terrain}</td>
               <td>{planet.surface_water}</td>
               <td>{planet.population}</td>
-              <td>{planet.films.map((film) => film)}</td>
-              <td>{planet.url}</td>
-              <td>{planet.created}</td>
-              <td>{planet.edited}</td>
+              <td>
+                <MdMoreVert size={30} color="F5F5F7" />
+              </td>
+              <td>
+                <button>
+                  <MdKeyboardArrowRight size={22} color="#212025" />
+                </button>
+              </td>
+              <td>{dateFormat(planet.created)}</td>
+              <td>{dateFormat(planet.edited)}</td>
             </tr>
           ))}
         </tbody>

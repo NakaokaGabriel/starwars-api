@@ -3,10 +3,12 @@ import { MdSearch } from 'react-icons/md';
 
 import styled from './Home.module.css';
 
-import Navigation from '../../components/Navigation';
-import Table from '../../components/Table';
 import Container from '../../components/Container';
+
+import Navigation from '../../components/Navigation';
 import Filter from '../../components/Filter';
+import Table from '../../components/Table';
+import Pagination from '../../components/Pagination';
 
 const Home: React.FC = () => {
   // TODO
@@ -40,13 +42,11 @@ const Home: React.FC = () => {
               />
             </label>
           </div>
-          <div className={styled.content__header}>
-            <Filter />
-          </div>
-        </Container>
 
-        <Container>
+          <Filter />
+
           <Table />
+          <Pagination />
         </Container>
       </section>
     </div>
