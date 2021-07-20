@@ -88,6 +88,32 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
         planet.name.toLowerCase().includes(lowerSearch)
       );
 
+      // function loadPopulation(value: string, comparison: string) {
+      //   if (comparison === 'lessThan') {
+      //     return searchResult.filter((planetResult) => {
+      //       return parseInt(planetResult.population) <= parseInt(value);
+      //     });
+      //   }
+
+      //   if (comparison === 'greaterThan') {
+      //     return searchResult.filter((planetResult) => {
+      //       return planetResult.population >= value;
+      //     });
+      //   }
+
+      //   if (comparison === 'equalThan') {
+      //     return searchResult.filter((planetResult) => {
+      //       return planetResult.population === value;
+      //     });
+      //   }
+      // }
+
+      // const planetFilter = filters.filters.filterByNumericValues.map(
+      //   (filterResult) => {
+      //     return loadPopulation(filterResult.value, filterResult.comparison);
+      //   }
+      // );
+
       setData({
         ...response.data,
         results: searchResult
