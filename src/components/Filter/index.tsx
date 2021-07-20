@@ -14,7 +14,7 @@ type Optiontype = {
 const Filter: React.FC = () => {
   const { setFilters, filters } = usePlanets();
 
-  const [name, setName] = useState<string>('');
+  const [name, setName] = useState<string>('Select...');
   const [comparison, setComparison] = useState<string>('');
   const [value, setValue] = useState('');
 
@@ -88,6 +88,10 @@ const Filter: React.FC = () => {
       });
 
       setNameOption([...removeName]);
+
+      setName('');
+      setComparison('');
+      setValue('');
     }
   };
 
@@ -127,6 +131,7 @@ const Filter: React.FC = () => {
             options={nameOption}
             styles={selectStyle}
             onChange={(event) => setName(event ? event.value : '')}
+            value={{ label: name || 'Select Name...', value: name }}
           />
         </label>
       </div>
@@ -136,6 +141,10 @@ const Filter: React.FC = () => {
             options={comparisonOption}
             styles={selectStyle}
             onChange={(event) => setComparison(event ? event.value : '')}
+            value={{
+              label: comparison || 'Select Comparison...',
+              value: comparison
+            }}
           />
         </label>
       </div>
@@ -146,6 +155,7 @@ const Filter: React.FC = () => {
             placeholder="Value"
             id="value"
             name="value"
+            value={value || ''}
             onChange={(event) => setValue(event.target.value)}
           />
         </label>
