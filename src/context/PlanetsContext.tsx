@@ -58,7 +58,7 @@ type PlanetDataReturn = {
   count: number | undefined;
   previous: string | undefined;
   next: string | undefined;
-  results: PlanetItem[] | undefined;
+  results: PlanetItem[];
 };
 
 const PlanetsContext = ({ children }: PlanetsContextProps) => {
@@ -76,43 +76,19 @@ const PlanetsContext = ({ children }: PlanetsContextProps) => {
 
   useEffect(() => {
     async function loadPlanets() {
+      const lowerSearch = search.toLocaleLowerCase();
+
       const response = await api.get<PlanetDataReturn>(`/planets`, {
         params: {
           page: page
         }
       });
 
-      const lowerSearch = search.toLocaleLowerCase();
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      const searchResult = response.data.results!.filter((planet) =>
-        planet.name.toLowerCase().includes(lowerSearch)
-      );
+      const searchResult = response.data.results.filter((planet) => {
+        const lowerCaseSearch = planet.name.toLowerCase().includes(lowerSearch);
 
-      // function loadPopulation(value: string, comparison: string) {
-      //   if (comparison === 'lessThan') {
-      //     return searchResult.filter((planetResult) => {
-      //       return parseInt(planetResult.population) <= parseInt(value);
-      //     });
-      //   }
-
-      //   if (comparison === 'greaterThan') {
-      //     return searchResult.filter((planetResult) => {
-      //       return planetResult.population >= value;
-      //     });
-      //   }
-
-      //   if (comparison === 'equalThan') {
-      //     return searchResult.filter((planetResult) => {
-      //       return planetResult.population === value;
-      //     });
-      //   }
-      // }
-
-      // const planetFilter = filters.filters.filterByNumericValues.map(
-      //   (filterResult) => {
-      //     return loadPopulation(filterResult.value, filterResult.comparison);
-      //   }
-      // );
+        return lowerCaseSearch;
+      });
 
       setData({
         ...response.data,
