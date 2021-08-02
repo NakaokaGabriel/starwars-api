@@ -13,16 +13,18 @@ import Table from '../../components/Table';
 import Pagination from '../../components/Pagination';
 
 const Home: React.FC = () => {
-  const { setSearch, filters } = usePlanets();
-  // TODO
-  // filtro de nome do planeta
-  // filtro por coluna exemplo o nome da coluna a qual apertar sera filtrado
-  // filtro de comparação
-  // filtro de valor
-  // remover uns dos filtros de coluna
+  const { setSearch, filters, setFilters } = usePlanets();
 
   const inputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
+    setFilters({
+      filters: {
+        filterByName: {
+          name: event.target.value
+        },
+        filterByNumericValues: [...filters.filters.filterByNumericValues]
+      }
+    });
   };
 
   return (
